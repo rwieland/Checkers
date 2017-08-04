@@ -43,11 +43,15 @@ Menu.prototype.hideMenuElement = function() {
 	
 }
 
-Menu.prototype.addOption = function() {
+Menu.prototype.addOption = function(key, label, result) {
 	
 }
 
-Menu.prototype.deleteOption = function() {
+Menu.prototype.deleteOption = function(key) {
+	
+}
+
+Menu.prototype.hideOption = function(key) {
 	
 }
 
