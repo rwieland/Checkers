@@ -1,9 +1,12 @@
 var Game = function() {
-	
+	this.games = []
 }
 
-Game.prototype.createGameElement = function() {
-	
+Game.prototype.createGameElement = function(parent_node) {
+	var game_element = document.createElement('div')
+	game_element.className = 'game-box'
+	parent_node.appendChild(game_element)	
+	this.games.push(game_element)
 }
 
 Game.prototype.removeGameElement = function() {
