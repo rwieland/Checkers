@@ -9,8 +9,16 @@ Game.prototype.createGameElement = function(parent_node) {
 	this.games.push(game_element)
 }
 
-Game.prototype.removeGameElement = function() {
-	
+Game.prototype.removeGameElement = function(index) {
+	if (index !== undefined) {
+		this.games[index].remove()
+		this.games.splice(index, 1)
+	} else {
+		for (var i = 0; i < this.games.length; i++) {
+			this.games[i].remove()
+		}
+		this.games = []
+	}
 }
 
 Game.prototype.hideGameElement = function() {
