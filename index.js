@@ -21,8 +21,14 @@ Game.prototype.removeGameElement = function(index) {
 	}
 }
 
-Game.prototype.hideGameElement = function() {
-	
+Game.prototype.toggleGameElement = function(index) {
+	if (index !== undefined) {
+		this.games[index].classList.toggle('hidden')
+	} else {
+		for (var i = 0; i < this.games.length; i++) {
+			this.games[i].classList.toggle('hidden')
+		}
+	}
 }
 
 Game.prototype.resizeGameElement = function() {

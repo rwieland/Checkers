@@ -3,3 +3,7 @@
     height: 300px;
     background: black; 
 }
+
+.hidden {
+	display: none;
+}
