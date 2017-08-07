@@ -51,18 +51,18 @@ Menu.prototype.createMenuElement = function() {
 	heading.innerHTML = this.head
 	element.appendChild(heading)
 	
+	if (this.pm && this.labels().indexOf('Back') == -1) {
+		this.addMenuOption('Back', this.pm)
+	}
+	
 	for (var i = 0; i < this.options.length; i++) {
 		var option = this.options[i]
 		if (!option.hidden) {
 			this.createOptionElement(option)
-			if (i != this.options.length || this.prnt) {
+			if (i != this.options.length) {
 				element.appendChild(document.createElement('br'))
 			}
 		}
-	}
-	
-	if (this.prnt) {
-		console.log('Implement menu switching')
 	}
 }
 
@@ -73,7 +73,19 @@ Menu.prototype.createOptionElement = function(option) {
 	if (option.type == 'Function') {
 		option_element.onclick = option.result
 	} else if (option.type == 'Menu') {
-		option_element.onclick = function() {console.log('Implement menu switching')}
+		var that = this
+		option_element.onclick = function() {
+			that.removeMenuElement()
+			
+			if (option.label == 'Back') {
+				var back = that.labels().indexOf('Back')
+				that.options.splice(back, 1)
+			} else {
+				option.result.pm = that
+			}
+			
+			option.result.updateMenuElement()
+		}
 	}
 	this.elem.appendChild(option_element)
 }
@@ -115,3 +127,6 @@ Menu.prototype.toggleMenuOption = function(i) {
 		this.options[i].hidden = true
 }
 
+Menu.prototype.labels = function() {
+	return this.options.map(function(x) {return x.label})
+}
