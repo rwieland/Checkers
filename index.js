@@ -35,14 +35,15 @@ var Menu = function(head) {
 	this.head = head
 	this.tree = {}
 	this.order = []
-	this.elements = []
+	this.elem = undefined
+	this.prnt = undefined
 }
 
 Menu.prototype.createMenuElement = function(parent_node) {
 	var element = document.createElement('div')
 	element.className = 'menu'
 	parent_node.appendChild(element)
-	this.elements.push(element)
+	this.elem = element
 	
 	var heading = document.createElement('h1')
 	heading.className = 'menu-heading'
@@ -52,28 +53,42 @@ Menu.prototype.createMenuElement = function(parent_node) {
 	for (var i = 0; i < this.order.length; i++) {
 		var option = this.tree[this.order[i]]
 		if (!option.hidden) {
-			var option_element = document.createElement('h2')
-			option_element.className = 'menu-option'
-			option_element.innerHTML = option.label
-			if (option.type = 'Function') {
-				option_element.onclick = option.result
-			} else if (option.type = 'Menu') {
-				option_element.onclick = console.log('Implement menu switching')
-			}
-			element.appendChild(option_element)
-			if (i != this.order.length) {
+			this.createOptionElement(option)
+			if (i != this.order.length || this.prnt) {
 				element.appendChild(document.createElement('br'))
 			}
 		}
 	}
+	
+	if (this.prnt) {
+		console.log('Implement menu switching')
+	}
+}
+
+Menu.prototype.createOptionElement = function(option) {
+	var option_element = document.createElement('h2')
+	option_element.className = 'menu-option'
+	option_element.innerHTML = option.label
+	if (option.type == 'Function') {
+		option_element.onclick = option.result
+	} else if (option.type == 'Menu') {
+		option_element.onclick = function() {console.log('Implement menu switching')}
+	}
+	this.elem.appendChild(option_element)
 }
 
 Menu.prototype.removeMenuElement = function(index) {
-	
+	this.elem.remove()
+	this.elem = undefined
 }
 
-Menu.prototype.updateMenuElement = function(index) {
-	
+Menu.prototype.updateMenuElement = function(parent_node) {
+	if (this.elem) {
+		this.removeMenuElement()
+		this.createMenuElement(parent_node)
+	} else {
+		this.createMenuElement(parent_node)
+	}
 }
 
 Menu.prototype.hideMenuElement = function(index) {
