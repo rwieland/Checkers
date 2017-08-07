@@ -10,7 +10,7 @@ Game.prototype.createGameElement = function(parent_node) {
 		this.elem = game_element
 	} else {
 		this.removeGameElement()
-		this.createGameElement()
+		this.createGameElement(parent_node)
 	}	
 }
 
