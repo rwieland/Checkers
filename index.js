@@ -1,17 +1,26 @@
 var Game = function() {
-	
+	this.elem = undefined
 }
 
-Game.prototype.createGameElement = function() {
-	
+Game.prototype.createGameElement = function(parent_node) {
+	if (this.elem === undefined) {
+		var game_element = document.createElement('div')
+		game_element.className = 'game-box'
+		parent_node.appendChild(game_element)
+		this.elem = game_element
+	} else {
+		this.removeGameElement()
+		this.createGameElement()
+	}	
 }
 
 Game.prototype.removeGameElement = function() {
-	
+	this.elem.remove()
+	this.elem = undefined
 }
 
-Game.prototype.hideGameElement = function() {
-	
+Game.prototype.toggleHidden = function() {
+	this.elem.classList.toggle('hidden')
 }
 
 Game.prototype.resizeGameElement = function() {
