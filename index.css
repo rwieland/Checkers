@@ -13,14 +13,22 @@
 	width: 62%;
 	border: 5px double black;
 	margin: 12% auto;
+	text-align: center;
 }
 
 .menu-heading {
-	text-align: center;
 	font-family: 'Wire One', sans-serif;
 }
 
 .menu-option {
-	text-align: center;
 	font-family: 'Wire One', sans-serif;
+	color: gray;
+	display: inline-block;
+	margin-top: 0;
+}
+
+.menu-option:hover {
+	cursor: pointer;
+	text-decoration: underline;
+	color: black;
 }

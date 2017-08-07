@@ -56,11 +56,14 @@ Menu.prototype.createMenuElement = function(parent_node) {
 			option_element.className = 'menu-option'
 			option_element.innerHTML = option.label
 			if (option.type = 'Function') {
-				
+				option_element.onclick = option.result
 			} else if (option.type = 'Menu') {
-				
+				option_element.onclick = console.log('Implement menu switching')
 			}
 			element.appendChild(option_element)
+			if (i != this.order.length) {
+				element.appendChild(document.createElement('br'))
+			}
 		}
 	}
 }
