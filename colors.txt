@@ -1,0 +1,5 @@
+green = #818B59
+tan1 = #DECD87
+blue = #66776D
+purple = #837779
+tan2 = #D9D0A5
