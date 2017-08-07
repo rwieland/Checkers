@@ -1,9 +1,26 @@
 .game-box {
-    width: 300px;
-    height: 300px;
-    background: black; 
+  width: 500px;
+  height: 500px;
+	border: 5px double black;
+	margin: auto;
 }
 
 .hidden {
 	display: none;
+}
+
+.menu {
+	width: 62%;
+	border: 5px double black;
+	margin: 12% auto;
+}
+
+.menu-heading {
+	text-align: center;
+	font-family: 'Wire One', sans-serif;
+}
+
+.menu-option {
+	text-align: center;
+	font-family: 'Wire One', sans-serif;
 }

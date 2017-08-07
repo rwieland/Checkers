@@ -2,7 +2,7 @@ var Game = function() {
 	this.elem = undefined
 }
 
-Game.prototype.createGameElement = function(parent_node) {
+Game.prototype.createGameElement = function(parent_node = document.body) {
 	if (this.elem === undefined) {
 		var game_element = document.createElement('div')
 		game_element.className = 'game-box'
@@ -38,13 +38,13 @@ var Menu = function(head) {
 	this.elements = []
 }
 
-Menu.prototype.createMenuElement = function(parent) {
+Menu.prototype.createMenuElement = function(parent_node) {
 	var element = document.createElement('div')
 	element.className = 'menu'
-	parent.appendChild(element)
+	parent_node.appendChild(element)
 	this.elements.push(element)
 	
-	var heading = document.createElement('h2')
+	var heading = document.createElement('h1')
 	heading.className = 'menu-heading'
 	heading.innerHTML = this.head
 	element.appendChild(heading)
@@ -52,9 +52,14 @@ Menu.prototype.createMenuElement = function(parent) {
 	for (var i = 0; i < this.order.length; i++) {
 		var option = this.tree[this.order[i]]
 		if (!option.hidden) {
-			var option_element = document.createElement('div')
+			var option_element = document.createElement('h2')
 			option_element.className = 'menu-option'
-			option_element.innerHTML = option.label			
+			option_element.innerHTML = option.label
+			if (option.type = 'Function') {
+				
+			} else if (option.type = 'Menu') {
+				
+			}
 			element.appendChild(option_element)
 		}
 	}
@@ -80,7 +85,7 @@ Menu.prototype.addMenuOption = function(key, label, result, position) {
 		'hidden' : false,
 		'position' : function() {return this.order.indexOf(key)}
 	}
-	this.order.splice(position, 0, key)
+	position == undefined ? this.order.push(key) : this.order.splice(position, 0, key)
 }
 
 Menu.prototype.deleteMenuOption = function(key) {
