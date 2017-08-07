@@ -1,16 +1,17 @@
-var Game = function() {
+var Game = function(pn) {
+	this.pn = pn
 	this.elem = undefined
 }
 
-Game.prototype.createGameElement = function(parent_node = document.body) {
+Game.prototype.createGameElement = function() {
 	if (this.elem === undefined) {
 		var game_element = document.createElement('div')
 		game_element.className = 'game-box'
-		parent_node.appendChild(game_element)
+		this.pn.appendChild(game_element)
 		this.elem = game_element
 	} else {
 		this.removeGameElement()
-		this.createGameElement(parent_node)
+		this.createGameElement()
 	}	
 }
 
@@ -31,18 +32,18 @@ Game.prototype.recolorGameElement = function() {
 	
 }
 
-var Menu = function(head) {
+var Menu = function(pn, head, options) {
+	this.pn = pn
 	this.head = head
-	this.tree = {}
-	this.order = []
+	this.options = []
 	this.elem = undefined
-	this.prnt = undefined
+	this.pm = undefined
 }
 
-Menu.prototype.createMenuElement = function(parent_node) {
+Menu.prototype.createMenuElement = function() {
 	var element = document.createElement('div')
 	element.className = 'menu'
-	parent_node.appendChild(element)
+	this.pn.appendChild(element)
 	this.elem = element
 	
 	var heading = document.createElement('h1')
@@ -50,11 +51,11 @@ Menu.prototype.createMenuElement = function(parent_node) {
 	heading.innerHTML = this.head
 	element.appendChild(heading)
 	
-	for (var i = 0; i < this.order.length; i++) {
-		var option = this.tree[this.order[i]]
+	for (var i = 0; i < this.options.length; i++) {
+		var option = this.options[i]
 		if (!option.hidden) {
 			this.createOptionElement(option)
-			if (i != this.order.length || this.prnt) {
+			if (i != this.options.length || this.prnt) {
 				element.appendChild(document.createElement('br'))
 			}
 		}
@@ -82,40 +83,35 @@ Menu.prototype.removeMenuElement = function(index) {
 	this.elem = undefined
 }
 
-Menu.prototype.updateMenuElement = function(parent_node) {
+Menu.prototype.updateMenuElement = function() {
 	if (this.elem) {
 		this.removeMenuElement()
-		this.createMenuElement(parent_node)
+		this.createMenuElement()
 	} else {
-		this.createMenuElement(parent_node)
+		this.createMenuElement()
 	}
 }
 
-Menu.prototype.hideMenuElement = function(index) {
-	
-}
-
-Menu.prototype.addMenuOption = function(key, label, result, position) {
-	this.tree[key] = {
+Menu.prototype.addMenuOption = function(label, result, position) {
+	var option = {
 		'label' : label, 
 		'result' : result,
 		'type' : result.constructor.name,
 		'hidden' : false,
-		'position' : function() {return this.order.indexOf(key)}
 	}
-	position == undefined ? this.order.push(key) : this.order.splice(position, 0, key)
+	position == undefined ? 
+		this.options.push(option) : 
+		this.options.splice(position, 0, option)
 }
 
-Menu.prototype.deleteMenuOption = function(key) {
-	tree.delete(key)
-	var index = this.order.indexOf(key)
-	index > -1 ? this.order.splice(index, 1) : null
+Menu.prototype.deleteMenuOption = function(i) {
+	this.options.splice(index, 1)
 	
 }
 
-Menu.prototype.toggleMenuOption = function(key) {
-	this.tree[key].hidden ? 
-		this.tree[key].hidden = false : 
-		this.tree[key].hidden = true
+Menu.prototype.toggleMenuOption = function(i) {
+	this.options[i].hidden ? 
+		this.options[i].hidden = false : 
+		this.options[i].hidden = true
 }
 
