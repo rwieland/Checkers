@@ -1,6 +1,7 @@
 var Game = function(pn) {
 	this.pn = pn
 	this.elem = undefined
+	this.createGameElement()
 }
 
 Game.prototype.createGameElement = function() {
