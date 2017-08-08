@@ -12,7 +12,7 @@ body {
 .double-border {
 	position: absolute;
 	border: 0.6em double black;
-	background-color: #FAF9DA;
+	background-color: #818B59;
 }
 
 .double-border > div {
@@ -23,6 +23,11 @@ body {
 
 .game {
 	background-color: #D04E3E;
+	background-image: linear-gradient(90deg, rgba(255,255,255,.07) 50%, transparent 50%),
+	linear-gradient(90deg, rgba(255,255,255,.13) 50%, transparent 50%),
+	linear-gradient(90deg, transparent 50%, rgba(255,255,255,.17) 50%),
+	linear-gradient(90deg, transparent 50%, rgba(255,255,255,.19) 50%);
+	background-size: 13px, 29px, 37px, 53px;
 }
 
 .game-container {
@@ -53,6 +58,8 @@ body {
 	font-family: 'Wire One', sans-serif;
 	font-size: 500%;
 	color: #5D4B33;
+	margin-top: 0px;
+	padding-top: 0.5em;
 	margin-bottom: 0.3em;
 }
 
