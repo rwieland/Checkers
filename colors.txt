@@ -1,5 +1,15 @@
+p1
+
 green = #818B59
 tan1 = #DECD87
 blue = #66776D
 purple = #837779
 tan2 = #D9D0A5
+
+p2
+
+1 = #FAF9DA
+2 = #F5D483
+3 = #EBAA44
+4 = #D04E3E
+5 = #5D4B33

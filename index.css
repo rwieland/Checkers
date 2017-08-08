@@ -1,20 +1,20 @@
 body {
-	background-color:silver;
+	background-color: #FAF9DA;
 	background-image: 
-	radial-gradient(circle at 100% 150%, silver 24%, white 25%, white 28%, silver 29%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
-	radial-gradient(circle at 0    150%, silver 24%, white 25%, white 28%, silver 29%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
-	radial-gradient(circle at 50%  100%, white 10%, silver 11%, silver 23%, white 24%, white 30%, silver 31%, silver 43%, white 44%, white 50%, silver 51%, silver 63%, white 64%, white 71%, transparent 71%, transparent),
-	radial-gradient(circle at 100% 50%, white 5%, silver 6%, silver 15%, white 16%, white 20%, silver 21%, silver 30%, white 31%, white 35%, silver 36%, silver 45%, white 46%, white 49%, transparent 50%, transparent),
-	radial-gradient(circle at 0    50%, white 5%, silver 6%, silver 15%, white 16%, white 20%, silver 21%, silver 30%, white 31%, white 35%, silver 36%, silver 45%, white 46%, white 49%, transparent 50%, transparent);
-	background-size:60px 30px;
+	radial-gradient(circle at 100% 150%, #F5D483 24%, #FAF9DA 25%, #FAF9DA 28%, #F5D483 29%, #F5D483 36%, #FAF9DA 36%, #FAF9DA 40%, transparent 40%, transparent),
+	radial-gradient(circle at 0    150%, #F5D483 24%, #FAF9DA 25%, #FAF9DA 28%, #F5D483 29%, #F5D483 36%, #FAF9DA 36%, #FAF9DA 40%, transparent 40%, transparent),
+	radial-gradient(circle at 50%  100%, #FAF9DA 10%, #F5D483 11%, #F5D483 23%, #FAF9DA 24%, #FAF9DA 30%, #F5D483 31%, #F5D483 43%, #FAF9DA 44%, #FAF9DA 50%, #F5D483 51%, #F5D483 63%, #FAF9DA 64%, #FAF9DA 71%, transparent 71%, transparent),
+	radial-gradient(circle at 100% 50%, #FAF9DA 5%, #F5D483 6%, #F5D483 15%, #FAF9DA 16%, #FAF9DA 20%, #F5D483 21%, #F5D483 30%, #FAF9DA 31%, #FAF9DA 35%, #F5D483 36%, #F5D483 45%, #FAF9DA 46%, #FAF9DA 49%, transparent 50%, transparent),
+	radial-gradient(circle at 0    50%, #FAF9DA 5%, #F5D483 6%, #F5D483 15%, #FAF9DA 16%, #FAF9DA 20%, #F5D483 21%, #F5D483 30%, #FAF9DA 31%, #FAF9DA 35%, #F5D483 36%, #F5D483 45%, #FAF9DA 46%, #FAF9DA 49%, transparent 50%, transparent);
+	background-size: 60px 30px;
 }
 
 .game-box {
-    width: 500px;
-    height: 500px;
-	border: 5px double black;
+    width: 90vmin;
+    min-height: 90vmin;
+	border: 3px solid black;
 	margin: auto;
-	background-color: #66776D;
+	background-color: #D04E3E;
 }
 
 .hidden {
@@ -26,29 +26,33 @@ body {
 	border: 5px double black;
 	margin: 12% auto;
 	text-align: center;
-	background-color: #D9D0A5;
+	background-color: #FAF9DA;
 }
 
 .menu-heading {
 	font-family: 'Wire One', sans-serif;
+	font-size: 500%;
+	color: #5D4B33;
 }
 
-.menu-heading: hover {
+.menu-heading:hover {
 	cursor: default;
 }
 
 .menu-option {
 	font-family: 'Wire One', sans-serif;
-	color: #837779;
+	font-size: 310%;
+	color: #EBAA44;
 	display: inline-block;
 	margin-top: 0;
 }
 
 .menu-option:hover {
 	cursor: pointer;
-	color: #818B59;
+	color: #D04E3E;
 }
 
 .menu-option:active {
 	text-decoration: underline;
+	color: #D04E3E;
 }
