@@ -1,15 +1,18 @@
 var Game = function(pn) {
 	this.pn = pn
 	this.elem = undefined
+	this.bord = undefined
 	this.createGameElement()
 }
 
 Game.prototype.createGameElement = function() {
 	if (this.elem === undefined) {
-		var game_element = document.createElement('div')
-		game_element.className = 'game-box'
-		this.pn.appendChild(game_element)
-		this.elem = game_element
+		this.bord = document.createElement('div')
+		this.bord.classList.add('game-container', 'double-border')
+		this.elem = document.createElement('div')
+		this.elem.className = 'game'
+		this.pn.appendChild(this.bord)
+		this.bord.appendChild(this.elem)
 	} else {
 		this.removeGameElement()
 		this.createGameElement()
@@ -18,11 +21,13 @@ Game.prototype.createGameElement = function() {
 
 Game.prototype.removeGameElement = function() {
 	this.elem.remove()
+	this.bord.remove()
 	this.elem = undefined
+	this.bord = undefined
 }
 
 Game.prototype.toggleHidden = function() {
-	this.elem.classList.toggle('hidden')
+	this.bord.classList.toggle('hidden')
 }
 
 Game.prototype.resizeGameElement = function() {
@@ -42,15 +47,18 @@ var Menu = function(pn, head, options) {
 }
 
 Menu.prototype.createMenuElement = function() {
-	var element = document.createElement('div')
-	element.className = 'menu'
-	this.pn.appendChild(element)
-	this.elem = element
+	this.bord = document.createElement('div')
+	this.bord.classList.add('menu-container', 'double-border')
+	this.pn.appendChild(this.bord)	
+	
+	this.elem = document.createElement('div')
+	this.elem.className = 'menu'
+	this.bord.appendChild(this.elem)
 	
 	var heading = document.createElement('h1')
 	heading.className = 'menu-heading'
 	heading.innerHTML = this.head
-	element.appendChild(heading)
+	this.elem.appendChild(heading)
 	
 	if (this.pm && this.labels().indexOf('Back') == -1) {
 		this.addMenuOption('Back', this.pm)
@@ -61,7 +69,7 @@ Menu.prototype.createMenuElement = function() {
 		if (!option.hidden) {
 			this.createOptionElement(option)
 			if (i != this.options.length) {
-				element.appendChild(document.createElement('br'))
+				this.elem.appendChild(document.createElement('br'))
 			}
 		}
 	}
@@ -93,6 +101,8 @@ Menu.prototype.createOptionElement = function(option) {
 
 Menu.prototype.removeMenuElement = function(index) {
 	this.elem.remove()
+	this.bord.remove()
+	this.elem = undefined
 	this.elem = undefined
 }
 

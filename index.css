@@ -9,12 +9,35 @@ body {
 	background-size: 60px 30px;
 }
 
-.game-box {
-    width: 90vmin;
-    min-height: 90vmin;
-	border: 3px solid black;
-	margin: auto;
+.double-border {
+	position: absolute;
+	border: 0.6em double black;
+	background-color: #FAF9DA;
+}
+
+.double-border > div {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.game {
 	background-color: #D04E3E;
+}
+
+.game-container {
+	width: 90vmin;
+	height: 90vmin;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.menu-container {
+	width: 62%;
+	margin: 12% 19% 12% 19%;
 }
 
 .hidden {
@@ -22,9 +45,6 @@ body {
 }
 
 .menu {
-	width: 62%;
-	border: 5px double black;
-	margin: 12% auto;
 	text-align: center;
 	background-color: #FAF9DA;
 }
@@ -33,6 +53,7 @@ body {
 	font-family: 'Wire One', sans-serif;
 	font-size: 500%;
 	color: #5D4B33;
+	margin-bottom: 0.3em;
 }
 
 .menu-heading:hover {
@@ -45,6 +66,7 @@ body {
 	color: #EBAA44;
 	display: inline-block;
 	margin-top: 0;
+	margin-bottom: 0.5em;
 }
 
 .menu-option:hover {
