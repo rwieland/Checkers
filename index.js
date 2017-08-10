@@ -142,6 +142,13 @@ Menu.prototype.labels = function() {
 	return this.options.map(function(x) {return x.label})
 }
 
+Menu.prototype.addSubMenus = function() {
+	for (var i = 0; i < arguments.length; i++) {
+		var x = new Menu(this.pn, arguments[i])
+		this.addMenuOption(x.head, x)
+	}
+}
+
 var Board = function(str){
 	this.dims = str.split('x').map(function(x) {return parseInt(x)}); 
 	// An array with the absolute lengths of each dimension
@@ -430,4 +437,9 @@ RectangularBoard.prototype.changeViewPlane = function(dim) {
 	})
 }
 
-
+var Checkers = function() {
+	this.board = new RectangularBoard('8x8')
+	this.game = new Game(document.body)
+	this.menu = new Menu(this.game.elem, 'Main Menu')
+	this.menu.addSubMenus('New Game', 'Load Game', 'Options', 'Statistics')
+}
