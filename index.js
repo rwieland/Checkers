@@ -406,5 +406,12 @@ var Checkers = function() {
 	this.board = new RectangularBoard(this.game.elem, '8x8')
 	this.menu = new Menu(this.game.elem, 'Main Menu')
 	this.menu.addSubMenus('New Game', 'Load Game', 'Options', 'Statistics')
+	this.menu.options[0].result.addMenuOption('Start', this.startGame.bind(this))
+}
+
+Checkers.prototype.startGame = function() {
+	this.menu.options[0].result.removeMenuElement()
+	this.board.createBoardElement()
+	
 }
 
