@@ -149,7 +149,7 @@ Menu.prototype.addSubMenus = function() {
 	}
 }
 
-var Board = function(str){
+var Board = function(pn, str){
 	this.dims = str.split('x').map(function(x) {return parseInt(x)}); 
 	// An array with the absolute lengths of each dimension
 	this.barr = new Array(this.dims.reduce(function(a, b) {return a*b}, 1)).fill(' '); 
@@ -164,8 +164,8 @@ var Board = function(str){
 	// An array of dimensions for two-dimensional display
 	this.options = document.getElementById('game-options')
 	// The options menu
-	this.game = document.getElementById('game')
-	// The game
+	this.game = pn
+	// The game element
 }
 
 Board.prototype.setDiml = function() { 
@@ -225,8 +225,8 @@ Board.prototype.copy = function(arr) { // Returns a shallow copy of an array
 	return arr.map(function(x) {return x})
 }
 
-var RectangularBoard = function(str) {
-	Board.call(this, str)
+var RectangularBoard = function(pn, str) {
+	Board.call(this, pn, str)
 	this.setDcts()
 	// An array of directions on the board
 	this.setCrns()
@@ -239,7 +239,7 @@ RectangularBoard.prototype.constructor = Board
 RectangularBoard.prototype.setDcts = function() {
 	// Sets this.dcts to an array of directions on the board
 	var str = '3x'.repeat(this.dims.length).slice(0, -1)
-	var a = new Board(str)
+	var a = new Board(null, str)
 	this.dcts = 
 		a.poss.filter(function(x) {
 			return !x.every(function(y) {return y == 1})
@@ -294,16 +294,20 @@ RectangularBoard.prototype.log = function() {
 	arr.map(function(x, i) {console.log(i + '|' + x.join('|') + '|')})
 }
 
-RectangularBoard.prototype.draw = function() {
-	// Draws the board in #game
-	this.clear()
-	var that = this
-	this.game.style.backgroundColor = 'black'
-	this.options.style.display = 'none'
+RectangularBoard.prototype.createBoardElement = function() {
+	this.bord = document.createElement('div')
+	this.bord.classList.add('board-container', 'double-border')
+	this.game.appendChild(this.bord)	
+	
+	this.elem = document.createElement('div')
+	this.elem.className = 'board'
+	this.bord.appendChild(this.elem)
+	
 	var b = this.to2D()
+	var that = this
 	b.forEach(function(x) {
 		var row = document.createElement('div')
-		row.className = 'row'
+		row.className = 'board-row'
 		x.forEach(function(y) {
 			var tile_border = document.createElement('div')
 			var tile = document.createElement('div')
@@ -313,64 +317,24 @@ RectangularBoard.prototype.draw = function() {
 			tile_border.appendChild(tile)
 			row.appendChild(tile_border)	
 		})
-		that.game.appendChild(row)
+		that.elem.appendChild(row)
 	})
-	this.adjustGameDimensions()
 }
 
-RectangularBoard.prototype.adjustGameDimensions = function() {
-	// Adjusts the game display to show a rectangular board with square tiles
-	var x = this.disp.indexOf('x')
-	var y = this.disp.indexOf('y')
-	
-	var wh = window.innerHeight
-	var ww = window.innerWidth
-	var th = this.dims[y]
-	var tw = this.dims[x]
-	var vr = ''
-	// View reference. i.e. css vh or vw
-	
-	wh / th > ww / tw ? vr = 'vw' : vr = 'vh'
-	/* If there is less room per tile in the window for tiles in the x dimension,
-	*  set the view reference to the view width. Otherwise set it to the view height.
-	*/
+RectangularBoard.prototype.removeBoardElement = function() {
+	this.elem.remove()
+	this.bord.remove()
+	this.elem = undefined
+	this.elem = undefined	
+}
 
-	
-	if (this.dims[x] > this.dims[y]) {
-		this.game.style.height = (70.0 * this.dims[y] / this.dims[x]).toString() + vr
-		this.game.style.width = '70' + vr
-	} else if (this.dims[x] < this.dims[y]) {
-		this.game.style.height = '70' + vr
-		this.game.style.width	= (70.0 * this.dims[x] / this.dims[y]).toString() + vr
+RectangularBoard.prototype.updateBoardElement = function() {
+	if (this.elem) {
+		this.removeBoardElement()
+		this.createBoardElement()
 	} else {
-		this.game.style.height = '70' + vr
-		this.game.style.width = '70' + vr		
+		this.createBoardElement()
 	}
-
-	var rows = this.game.querySelectorAll('.row')
-	var row_height = 1.0 / this.dims[y] * 100
-	for (var i = 0; i < rows.length; i++) {
-		rows[i].style.height = row_height.toString() + '%'
-	}
-	
-	var tiles = this.game.querySelectorAll('.tile-border')
-	var tile_width = 1.0 / this.dims[x] * 100
-	for (var i = 0; i < tiles.length; i++) {
-		tiles[i].style.width = tile_width.toString() + '%'
-	}
-}
-
-RectangularBoard.prototype.resetGameDimensions = function() {
-	this.game.style.height = '70vh'
-	this.game.style.width = '70vh'
-}
-
-RectangularBoard.prototype.clear = function() {
-	// Clears the board from #game
-	var b = document.querySelectorAll('.row')
-	for (var n = 0; n < b.length; n++) {
-		b[n].remove()
-	}	
 }
 
 RectangularBoard.prototype.changeViewPlane = function(dim) {
@@ -438,8 +402,9 @@ RectangularBoard.prototype.changeViewPlane = function(dim) {
 }
 
 var Checkers = function() {
-	this.board = new RectangularBoard('8x8')
 	this.game = new Game(document.body)
+	this.board = new RectangularBoard(this.game.elem, '8x8')
 	this.menu = new Menu(this.game.elem, 'Main Menu')
 	this.menu.addSubMenus('New Game', 'Load Game', 'Options', 'Statistics')
 }
+
