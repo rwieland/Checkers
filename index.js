@@ -231,6 +231,7 @@ var RectangularBoard = function(pn, str) {
 	// An array of directions on the board
 	this.setCrns()
 	// An array of corners on the board
+	this.isCheckered = false
 }
 
 RectangularBoard.prototype = Object.create(Board.prototype)
@@ -305,15 +306,25 @@ RectangularBoard.prototype.createBoardElement = function() {
 	
 	var b = this.to2D()
 	var that = this
-	b.forEach(function(x) {
+	b.forEach(function(x, i) {
 		var row = document.createElement('div')
 		row.className = 'board-row'
-		x.forEach(function(y) {
+		x.forEach(function(y, j) {
 			var tile_border = document.createElement('div')
 			var tile = document.createElement('div')
 			tile_border.className = 'tile-border'
 			tile.className = 'tile'
 			tile.id = 't' + y.join('.')
+			if (that.isCheckered) {
+				console.log(i % 2 == j % 2)
+				if (i % 2 == j % 2) {
+					tile.classList.add('white-tile')
+				} else {
+					tile.classList.add('black-tile')
+				}			
+			} else {
+				tile.classList.add('white-tile')
+			}
 			tile_border.appendChild(tile)
 			row.appendChild(tile_border)	
 		})
@@ -404,6 +415,7 @@ RectangularBoard.prototype.changeViewPlane = function(dim) {
 var Checkers = function() {
 	this.game = new Game(document.body)
 	this.board = new RectangularBoard(this.game.elem, '8x8')
+	this.board.isCheckered = true
 	this.menu = new Menu(this.game.elem, 'Main Menu')
 	this.menu.addSubMenus('New Game', 'Load Game', 'Options', 'Statistics')
 	this.menu.options[0].result.addMenuOption('Start', this.startGame.bind(this))

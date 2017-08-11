@@ -105,7 +105,6 @@ body {
 	height: 95%;
 	width: 95%;
 	position: relative;
-	background: white;
 	top: 2.5%;
 	left: 2.5%;
 	display: flex;
@@ -125,4 +124,12 @@ body {
 
 .board {
 	
+}
+
+.white-tile {
+	background-color: #FAF9DA
+}
+
+.black-tile {
+	background-color: #D04E3E
 }
