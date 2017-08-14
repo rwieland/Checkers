@@ -422,7 +422,22 @@ var Checkers = function() {
 
 Checkers.prototype.startGame = function() {
 	this.menu.options[0].result.removeMenuElement()
+	this.addStartingPositions()
 	this.board.createBoardElement()
 	
+}
+
+Checkers.prototype.addStartingPositions = function() {
+	var poss = this.board.poss
+	for (p = 0; p < poss.length; p++) {
+		var y = poss[p][0]
+		var x = poss[p][1]
+		var h = this.board.dims[0]
+		if (x < 3 && x % 2 != y % 2) {
+			this.board.write(poss[p], 'b')
+		} else if (x > h - 4 && x % 2 != y % 2) {
+			this.board.write(poss[p], 'w')
+		}
+	}
 }
 
