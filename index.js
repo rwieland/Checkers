@@ -418,13 +418,13 @@ var Checkers = function() {
 	this.menu = new Menu(this.game.elem, 'Main Menu')
 	this.menu.addSubMenus('New Game', 'Load Game', 'Options', 'Statistics')
 	this.menu.options[0].result.addMenuOption('Start', this.startGame.bind(this))
+	this.ppos = [] // Piece positions
 }
 
 Checkers.prototype.startGame = function() {
 	this.menu.options[0].result.removeMenuElement()
 	this.addStartingPositions()
 	this.board.createBoardElement()
-	
 }
 
 Checkers.prototype.addStartingPositions = function() {
@@ -435,9 +435,45 @@ Checkers.prototype.addStartingPositions = function() {
 		var h = this.board.dims[0]
 		if (x < 3 && x % 2 != y % 2) {
 			this.board.write(poss[p], 'b')
+			this.ppos.push(poss[p])
 		} else if (x > h - 4 && x % 2 != y % 2) {
 			this.board.write(poss[p], 'w')
+			this.ppos.push(poss[p])
 		}
+	}
+}
+
+Checkers.prototype.validMove = function(player, position, direction) {
+	if (player.toUpperCase() != this.board.read(position).toUpperCase()) {
+		return false
+	}
+	if (position.some(function(x) {return x == 0})) {
+		return false
+	}
+	
+	var newp = position.map(function(x, i) {
+		return x + direction[i]
+	})
+	
+	var a = this.board.read(newp)
+	if (a) {
+		if (a == ' ') {
+			return newp
+		} else if (a.toUpperCase() != player.toUpperCase) {
+			
+			var newp = newp.map(function(x, i) {
+				return x + direction[i]
+			})
+			if (this.board.read(newp) == ' ') {
+				return newp
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	} else {
+		return false
 	}
 }
 
