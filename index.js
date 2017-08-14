@@ -316,7 +316,6 @@ RectangularBoard.prototype.createBoardElement = function() {
 			tile.className = 'tile'
 			tile.id = 't' + y.join('.')
 			if (that.isCheckered) {
-				console.log(i % 2 == j % 2)
 				if (i % 2 == j % 2) {
 					tile.classList.add('white-tile')
 				} else {
