@@ -413,17 +413,33 @@ RectangularBoard.prototype.changeViewPlane = function(dim) {
 }
 
 var Checkers = function() {
+	this.players = ['h', 'h']
 	this.game = new Game(document.body)
 	this.board = new RectangularBoard(this.game.elem, '8x8')
 	this.board.isCheckered = true
 	this.menu = new Menu(this.game.elem, 'Main Menu')
 	this.menu.addSubMenus('New Game', 'Load Game', 'Options', 'Statistics')
+	this.menu.options[0].result.addMenuOption('Player 1: Human', this.togglePlayer(0).bind(this))
+	this.menu.options[0].result.addMenuOption('Player 2: Human', this.togglePlayer(1).bind(this))
 	this.menu.options[0].result.addMenuOption('Start', this.startGame.bind(this))
 }
 
 Checkers.prototype.startGame = function() {
 	this.menu.options[0].result.removeMenuElement()
-	this.board.createBoardElement()
-	
+	this.board.createBoardElement()	
+}
+
+Checkers.prototype.togglePlayer = function(i) {
+	console.log(this.menu.options[0].result.options)
+	var p = this.players[i]
+	if (p = 'h') {
+		this.players[i] = 'c'
+		this.menu.options[0].result.options[i].label = 'Player ' + (i + 1) + ': Computer'
+		document.body.querySelectorAll('menu-option')[i].innerHTML = 'Player ' + (i + 1) + ': Computer'
+	} else if (p = 'c') {
+		this.players[i] = 'h'
+		this.menu.options[0].result.options[i].label = 'Player ' + (i + 1) + ': Human'
+		document.body.querySelectorAll('menu-option')[i].innerHTML = 'Player ' + (i + 1) + ': Human'
+	}
 }
 
