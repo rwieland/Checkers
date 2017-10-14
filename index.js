@@ -316,7 +316,6 @@ RectangularBoard.prototype.createBoardElement = function() {
 			tile.className = 'tile'
 			tile.id = 't' + y.join('.')
 			if (that.isCheckered) {
-				console.log(i % 2 == j % 2)
 				if (i % 2 == j % 2) {
 					tile.classList.add('white-tile')
 				} else {
@@ -422,10 +421,12 @@ var Checkers = function() {
 	this.menu.options[0].result.addMenuOption('Player 1: Human', this.togglePlayer(0).bind(this))
 	this.menu.options[0].result.addMenuOption('Player 2: Human', this.togglePlayer(1).bind(this))
 	this.menu.options[0].result.addMenuOption('Start', this.startGame.bind(this))
+	this.ppos = [] // Piece positions
 }
 
 Checkers.prototype.startGame = function() {
 	this.menu.options[0].result.removeMenuElement()
+<<<<<<< HEAD
 	this.board.createBoardElement()	
 }
 
@@ -440,6 +441,59 @@ Checkers.prototype.togglePlayer = function(i) {
 		this.players[i] = 'h'
 		this.menu.options[0].result.options[i].label = 'Player ' + (i + 1) + ': Human'
 		document.body.querySelectorAll('menu-option')[i].innerHTML = 'Player ' + (i + 1) + ': Human'
+=======
+	this.addStartingPositions()
+	this.board.createBoardElement()
+}
+
+Checkers.prototype.addStartingPositions = function() {
+	var poss = this.board.poss
+	for (p = 0; p < poss.length; p++) {
+		var y = poss[p][0]
+		var x = poss[p][1]
+		var h = this.board.dims[0]
+		if (x < 3 && x % 2 != y % 2) {
+			this.board.write(poss[p], 'b')
+			this.ppos.push(poss[p])
+		} else if (x > h - 4 && x % 2 != y % 2) {
+			this.board.write(poss[p], 'w')
+			this.ppos.push(poss[p])
+		}
+	}
+}
+
+Checkers.prototype.validMove = function(player, position, direction) {
+	if (player.toUpperCase() != this.board.read(position).toUpperCase()) {
+		return false
+	}
+	if (position.some(function(x) {return x == 0})) {
+		return false
+	}
+	
+	var newp = position.map(function(x, i) {
+		return x + direction[i]
+	})
+	
+	var a = this.board.read(newp)
+	if (a) {
+		if (a == ' ') {
+			return newp
+		} else if (a.toUpperCase() != player.toUpperCase) {
+			
+			var newp = newp.map(function(x, i) {
+				return x + direction[i]
+			})
+			if (this.board.read(newp) == ' ') {
+				return newp
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	} else {
+		return false
+>>>>>>> cfb3b54f4cfbf25992665e4a2993b5da94fe9c34
 	}
 }
 
